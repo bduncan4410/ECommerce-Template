@@ -36,6 +36,11 @@
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>io.openliberty.features</groupId>
+			<artifactId>beanValidation-2.0</artifactId>
+			<version>22.0.0.6</version>
+		</dependency>
 	</dependencies>
 
 	<build>
