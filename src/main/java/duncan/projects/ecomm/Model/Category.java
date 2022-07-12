@@ -1,4 +1,10 @@
 package duncan.projects.ecomm.Model;
 
-public class Category {
+import javax.persistence.Id;
+
+public class Category
+{
+    @Id
+    private int ID;
+
 }

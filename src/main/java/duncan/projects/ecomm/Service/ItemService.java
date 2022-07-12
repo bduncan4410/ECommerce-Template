@@ -8,13 +8,20 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-
+/**Class that provides the basic CRUD functions communicate with the repository.
+ *
+ */
 @Service
 public class ItemService
 {
+
     @Autowired
     ItemRepo itemRepo;
 
+    /** Creates an item
+     *
+     * @param item New item to be created
+     */
     public void createItem(Item item)
     {
         itemRepo.save(item);

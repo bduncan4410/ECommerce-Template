@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Objects;
 
+/**CRUD operation for the Item model.
+ *
+ */
 @RestController
 @RequestMapping("/item")
 public class ItemController
@@ -18,6 +21,10 @@ public class ItemController
     @Autowired
     private ItemService itemService;
 
+    /** Returns a list of items containted in a response entity with a valid HttpStatus
+     *
+     * @return  Response entity of the item list.
+     */
     @GetMapping("/")
     public ResponseEntity<List<Item>> getItems()
     {
@@ -25,12 +32,17 @@ public class ItemController
         return new ResponseEntity<>(itemList, HttpStatus.OK);
     }
 
+    /** Creates a new item and adds it into the database.
+     *
+     * @param item The new item to be created
+     * @return A response API that displays a response with a respective http status
+     */
     @PostMapping("/create")
     public ResponseEntity<APIResponse> createItem(@RequestBody Item item)
     {
         if(Objects.nonNull(itemService.readItem(item.getName())))
         {
-            return new ResponseEntity<APIResponse>(new APIResponse(false, "category already exists"), HttpStatus.CONFLICT);
+            return new ResponseEntity<APIResponse>(new APIResponse(false, "Error: Item already exists"), HttpStatus.CONFLICT);
         }
         else
         {
@@ -39,16 +51,22 @@ public class ItemController
         }
     }
 
+    /**Update operation that replaces a Item by ID with a new ID
+     *
+     * @param itemID ID in the DB of the item to be deleted
+     * @param item the item with the updated field
+     * @return The response from the webserver; Success = true if the operation completed; else false
+     */
     @PostMapping("/update/{categoryID}")
     public ResponseEntity<APIResponse> updateCategory(@PathVariable("categoryID") Integer itemID, @RequestBody Item item) {
         // Check to see if the category exists.
         if (Objects.nonNull(itemService.readItem(itemID)))
         {
            itemService.updateItem(itemID, item);
-            return new ResponseEntity<APIResponse>(new APIResponse(true, "updated the category"), HttpStatus.OK);
+            return new ResponseEntity<APIResponse>(new APIResponse(true, "Item updated successfully"), HttpStatus.OK);
         }
 
         // If the category doesn't exist then return a response of unsuccessful.
-        return new ResponseEntity<>(new APIResponse(false, "category does not exist"), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new APIResponse(false, "Failed to update the item."), HttpStatus.NOT_FOUND);
     }
 }

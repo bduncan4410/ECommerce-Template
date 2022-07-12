@@ -11,15 +11,35 @@ public class Item
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-
     @Column(name = "Name")
     private @NonNull String name;
+    @Column(name = "Desc")
     private @NonNull String description;
+    @Column(name = "Category")
     private @NonNull String category;
+    @Column(name = "Price")
     private @NonNull double price;
+    @Column(name = "Active")
     private @NonNull boolean isActive;
 
-    public Item(Long id, @NonNull String name, @NonNull String description, @NonNull String category, double price, boolean isActive)
+    /**Default Constructor
+     * does nothing; please avoid using
+     */
+    public Item()
+    {
+
+    }
+
+    /**Overloaded constructor with all required fields.
+     *
+     * @param id GUID
+     * @param name Name of the item
+     * @param description Description of the item
+     * @param category String of the category (will be changed to category object on later implementation
+     * @param price Price of the item in the $0.00 format
+     * @param isActive  Boolean value that sets the item to active or inactive
+     * */
+    public Item(Long id, @NonNull String name, @NonNull String description, @NonNull String category, @NonNull double price, @NonNull boolean isActive)
     {
         this.id = id;
         this.name = name;
